@@ -258,7 +258,7 @@ async function connectToRemoteExtensionHostAgent(options: ISimpleConnectionOptio
 	protocol.sendControl(VSBuffer.fromString(JSON.stringify(authRequest)));
 
 	try {
-		const msg = await readOneControlMessage<HandshakeMessage>(protocol, combineTimeoutCancellation(timeoutCancellationToken, createTimeoutCancellation(10000)));
+		const msg = await readOneControlMessage<HandshakeMessage>(protocol, combineTimeoutCancellation(timeoutCancellationToken, createTimeoutCancellation(INITIAL_CONNECT_TIMEOUT)));
 
 		if (msg.type !== 'sign' || typeof msg.data !== 'string') {
 			const error: any = new Error('Unexpected handshake message');
